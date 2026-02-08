@@ -169,21 +169,21 @@ void loop() {
     float nilai_akhir = defuzzifyCOG(otak);
 
     String gerakan = "";
-    if (nilai_akhir < -11.0)      arah = "MUNDUR";
-    else if (nilai_akhir < -2.0)  arah = "BELOK KIRI";
-    else if (nilai_akhir > 2.0)   arah = "BELOK KANAN";
-    else                          arah = "MAJU LURUS";
+    if (nilai_akhir < -11.0)      gerakan = "MUNDUR";
+    else if (nilai_akhir < -2.0)  gerakan = "BELOK KIRI";
+    else if (nilai_akhir > 2.0)   gerakan = "BELOK KANAN";
+    else                          gerakan = "MAJU LURUS";
 
     Serial.print("D:"); 
-    Serial.print(d_depan);
+    Serial.print(d1);
     Serial.print(" Ki:"); 
-    Serial.print(d_kiri);
+    Serial.print(d3);
     Serial.print(" Ka:"); 
-    Serial.print(d_kanan);
+    Serial.print(d2);
     Serial.print(" | Score:"); 
     Serial.print(nilai_akhir);
     Serial.print(" -> "); 
-    Serial.println(arah);
+    Serial.println(gerakan);
 
     delay(3000);
 }
