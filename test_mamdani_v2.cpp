@@ -174,12 +174,83 @@ float DefFuzCOG(FuzOutPre output) {
 
 long d1, d2, d3, d4;
 
+
 void setup() {
   // put your setup code here, to run once:
+  lcd.init();
+  lcd.backlight();
 
+  Serial.begin(9600);
+
+  pinMode(depanTrig, OUTPUT); pinMode(depanEcho, INPUT);
+  pinMode(kananTrig, OUTPUT); pinMode(kananEcho, INPUT);
+  pinMode(kiriTrig, OUTPUT); pinMode(kiriEcho, INPUT);
+  pinMode(belakangTrig, OUTPUT); pinMode(belakangEcho, INPUT);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
+unsigned long currentMillis = millis();
 
+    enum DIRECTION {
+        MUNDUR = 0,
+        KIRI = 1,
+        KANAN = 2,
+        MAJU = 3
+    };
+
+    DIRECTION direction = MAJU;
+
+    // Baca sensor dan hitung logika fuzzy
+    if(currentMillis - previousMillis_sensor >= interval_sensor) {
+        d1 = readUltrasonic(depanTrig, depanEcho); // depan
+        d2 = readUltrasonic(kananTrig, kananEcho); // kanan
+        d3 = readUltrasonic(kiriTrig, kiriEcho); // kiri
+        d4 = readUltrasonic(belakangTrig, belakangEcho); // belakang
+
+        FuzOutPre result = fuzinf(d1, d2, d3, d4);
+        float final_value = DefFuzCOG(result);
+
+        if (final_value < -50.0f) {
+            direction = MUNDUR ; // ganti dengan fungsi gait planning mundue
+        } else if (final_value < -15.0f) {
+            direction = KIRI; // ganti dengan fungsi gait planning belok ke kiri
+        } else if (final_value > 15.0f) {
+            direction = KANAN; // ganti dengan fungsi gait planning belok ke kanan
+        } else {
+            direction = MAJU; // ganti dengan fungsi gait planning maju
+        }
+
+        Serial.println((int)direction); 
+    }
+
+    // Panggil fungsi gait untuk menggerakkkan robot
+    if(currentMillis - previousMillis_gait >= interval_gait) {
+        switch (current_direction) {
+            case MAJU:
+                //forward_gait();      // fungsi maju kamu
+                lcd.setCursor(0, 0);
+                lcd.print("MAJU");
+                // break;
+            case KIRI:
+                // rotate_left_gait();  // fungsi belok kiri
+                lcd.setCursor(0, 1);
+                lcd.print("KIRI");
+                //break;
+            case KANAN:
+                // rotate_right_gait(); // fungsi belok kanan
+                lcd.setCursor(0, 1);
+                lcd.print("KANAN");
+                //break;
+            case MUNDUR:
+                // backward_gait();     // fungsi mundur
+                lcd.setCursor(0, 1);
+                lcd.print("MUNDUR");
+                //break;
+        }
+        delay(1000);
+        break;
+    }
+
+    // delay(200);
 }
