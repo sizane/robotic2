@@ -43,9 +43,9 @@ float trimf(float x, float a, float b, float c, float d) {
 jarakSet FuzJar(long jrk) {
     jarakSet ds;
     //ds.dekat_bet = trimf(jrk, 0, 5, 12, 25);
-    ds.dekat = trimf(jrk, 0, 10, 30, 40 );
-    ds.lumayan = trimf(jrk, 15, 45, 55, 60);
-    ds.adohmen = trimf(jrk, 40, 55, 65, 65);
+    ds.dekat = trimf(jrk, 0, 0, 10, 15);
+    ds.lumayan = trimf(jrk, 10, 15, 20, 25);
+    ds.adohmen = trimf(jrk, 20, 25, 60, 60)
     return ds;
 }
 
@@ -177,6 +177,15 @@ FuzOutPre fuzinf(long d1, long d2, long d3, long d4) {
     float act_rule15 = fuzzyMin(kanan.dekat, fuzzyMin(maju.adohmen, kiri.lumayan));
     pref_belok_kiri = fuzzyMax(pref_belok_kiri, act_rule15 * 0.5f);
     pref_kedepan = fuzzyMax(pref_kedepan, act_rule15 * 0.3f);
+
+    float act_rule16 = fuzzyMin(maju.dekat, fuzzyMin(kiri.lumayan, kanan.lumayan))
+    pref_belok_kanan = fuzzyMax(pref_belok_kanan, act_rule16)
+
+    float act_rule17 = fuzzyMin(maju.dekat, fuzzyMin(kiri.lumayan, kanan.adohmen))
+    pref_belok_kanan = fuzzyMax(pref_belok_kanan, act_rule17)
+
+    float act_rule18 = fuzzyMin(maju.dekat, fuzzyMin(kanan.lumayan, kiri.adohmen))
+    pref_belok_kiri = fuzzyMax(pref_belok_kiri, act_rule18)
 
 
 
