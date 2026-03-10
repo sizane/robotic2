@@ -43,9 +43,9 @@ float trimf(float x, float a, float b, float c, float d) {
 jarakSet FuzJar(long jrk) {
     jarakSet ds;
     //ds.dekat_bet = trimf(jrk, 0, 5, 12, 25);
-    ds.dekat = trimf(jrk, 15, 25, 45, 55);
-    ds.lumayan = trimf(jrk, 40, 60, 80, 90);
-    ds.adohmen = trimf(jrk, 75, 90, 100, 100);
+    ds.dekat = trimf(jrk, 0, 10, 30, 40 );
+    ds.lumayan = trimf(jrk, 15, 45, 55, 60);
+    ds.adohmen = trimf(jrk, 40, 55, 65, 65);
     return ds;
 }
 
@@ -170,7 +170,15 @@ FuzOutPre fuzinf(long d1, long d2, long d3, long d4) {
     float act_rule13 = fuzzyMin(maju.lumayan, fuzzyMin(kiri.dekat, kanan.dekat));
     pref_kedepan = fuzzyMax(pref_kedepan, act_rule13);
 
-    
+    float act_rule14 = fuzzyMin(kiri.dekat, fuzzyMin(maju.adohmen, kanan.lumayan));
+    pref_belok_kanan = fuzzyMax(pref_belok_kanan, act_rule14 * 0.5f);
+    pref_kedepan = fuzzyMax(pref_kedepan, act_rule14 * 0.3f);
+
+    float act_rule15 = fuzzyMin(kanan.dekat, fuzzyMin(maju.adohmen, kiri.lumayan));
+    pref_belok_kiri = fuzzyMax(pref_belok_kiri, act_rule15 * 0.5f);
+    pref_kedepan = fuzzyMax(pref_kedepan, act_rule15 * 0.3f);
+
+
 
     float
     FuzOutPre fo;
@@ -182,7 +190,7 @@ FuzOutPre fuzinf(long d1, long d2, long d3, long d4) {
     return fo;
 }
 
-const int OUTPUT_UNIVERSE_SIZE = 61;
+const int OUTPUT_UNIVERSE_SIZE = 60;
 const float OUTPUT_UNIVERSE_MIN = -100.0f;
 const float OUTPUT_UNIVERSE_MAX = 100.0f;
 
