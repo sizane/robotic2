@@ -210,11 +210,12 @@
 
         //rule ini agak ambigu, jadi dimasa akan datang mungkin perlu direvisi tergantung dari medan yang dihadapi robot
         float act_rule19 = fuzzyMin(maju.dekat, fuzzyMin(kiri.adohmen, kanan.adohmen));
-        pref_kebelakang = fuzzyMax(pref_kebelakang, act_rule19);
+        pref_belok_kanan = fuzzyMax(pref_belok_kanan, act_rule19);
 
         //rule ini juga agak ambigu, karena bisa saja robot berada di tengah-tengah antara dua rintangan, sehingga perlu direvisi tergantung dari medan yang dihadapi robot
-        float act_rule20 = fuzzyMin(maju.adohmen, fuzzyMin(kiri.adohmen, kanan.adohmen));
-        pref_kedepan = fuzzyMax(pref_kedepan, act_rule20);
+        float r_hunting = fuzzyMin(maju.adohmen, fuzzyMin(kiri.adohmen, kanan.adohmen));
+        pref_kedepan = fuzzyMax(pref_kedepan, r_hunting * 0.6f); // Maju pelan
+        pref_belok_kanan = fuzzyMax(pref_belok_kanan, r_hunting * 0.3f); // Serong dikit
 
 
         FuzOutPre fo;
@@ -328,7 +329,7 @@
                     lcd.print("MAJU  ");
                     break;
                 case KIRI:
-                    lcd.setCursor(0,    1);
+                    lcd.setCursor(0,    1); 
                     lcd.print("KIRI  ");
                     break;
                 case KANAN:
