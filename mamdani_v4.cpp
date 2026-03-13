@@ -63,14 +63,15 @@
 
     jarakSet FuzJar(long jrk) {
         jarakSet ds;
-        float p1 = batasLorong * 0.25;
+        float p1 = batasLorong * 0.20;
         float p2 = batasLorong * 0.40;
-        float p3 = batasLorong * 0.60;
-        float p4 = batasLorong * 0.75;
+        float p3 = batasLorong * 0.50;
+        float p4 = batasLorong * 0.60;
+        float p5 = batasLorong * 0.80;
         
-        ds.dekat = trimf(jrk, 0, 0, p1, p2);
-        ds.lumayan = trimf(jrk, p1, p2, p3, p4);
-        ds.adohmen = trimf(jrk, p3, p4, batasLorong, batasLorong);
+        ds.dekat = trimf(jrk, 0, 0, p1, p3);
+        ds.lumayan = trimf(jrk, p1, p2, p4, p5);
+        ds.adohmen = trimf(jrk, p3, p5, batasLorong, batasLorong);
         return ds;
     }
     float fuzzyMin(float a, float b) {
