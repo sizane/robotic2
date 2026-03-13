@@ -1,7 +1,4 @@
     #include <Wire.h>
-    #include <LiquidCrystal_I2C.h>
-
-    LiquidCrystal_I2C lcd(0x27, 16, 2);
 
     #define depanTrig 32
     #define depanEcho 25
@@ -284,8 +281,6 @@
     DIRECTION direction = MAJU;
 
     void setup() {
-        lcd.init();
-        lcd.backlight();
         Serial.begin(9600);
 
         pinMode(depanTrig, OUTPUT); pinMode(depanEcho, INPUT);
@@ -326,20 +321,16 @@
         previousMillis_gait = currentMillis;
             switch (direction) {
                 case MAJU:
-                    lcd.setCursor(0, 0);
-                    lcd.print("MAJU  ");
+                    Serial.println("Maju");
                     break;
                 case KIRI:
-                    lcd.setCursor(0,    1); 
-                    lcd.print("KIRI  ");
+                    Serial.println("Maju");
                     break;
                 case KANAN:
-                    lcd.setCursor(0, 1);
-                    lcd.print("KANAN ");
+                    Serial.println("Maju");
                     break;
                 case MUNDUR:
-                    lcd.setCursor(0, 0);
-                    lcd.print("MUNDUR");
+                    Serial.println("Maju");
                     break;
             }
         }
