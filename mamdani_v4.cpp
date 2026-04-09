@@ -48,9 +48,9 @@ jarakSet FuzJar(long jrk) {
 */
 
 /*
-pada implementasi ini, batas lorong diasumsikan 60 cm, 
-sehingga jarak yang lebih dari 60 cm dianggap tidak ada rintangan, 
-dan jarak yang lebih kecil dari 60 cm dianggap ada rintangan.
+pada implementasi ini, batas lorong diasumsikan 50 cm, 
+sehingga jarak yang lebih dari 50 cm dianggap tidak ada rintangan, 
+dan jarak yang lebih kecil dari 50 cm dianggap ada rintangan.
 dan dimasa akan datang, batas lorong ini bisa disesuaikan dengan kondisi lapangan yang dihadapi robot,
 misalnya jika robot berada di lapangan yang lebih sempit, maka batas lorong bisa dikurangi, 
 atau jika robot berada di lapangan yang lebih luas, maka batas lorong bisa ditambah
@@ -321,18 +321,18 @@ void loop() {
     previousMillis_gait = currentMillis;
         switch (direction) {
             case MAJU:
-                Serial.println("Maju");
+                //Serial.println("Maju");
                 break;
             case KIRI:
-                Serial.println("Kiri");
+                //Serial.println("Kiri");
                 break;
             case KANAN:
-                Serial.println("Kanan");
+                //Serial.println("Kanan");
                 break;
             case MUNDUR:
-                Serial.println("Mundur");
+                //Serial.println("Mundur");
                 break;
         }
     }
-    delay(1000);
+    delay(100);
 }
